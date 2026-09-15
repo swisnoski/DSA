@@ -1,0 +1,10 @@
+^C:\USERS\SWISNOSKI\ONEDRIVE - OLIN COLLEGE OF ENGINEERING\2026_02 FALL\DATA STRUCTURES + ALGORITHMS\ASSIGNMENT 2\LINKEDLIST, STACK, QUEUE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SC:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/LinkedList, Stack, Queue" "-BC:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/LinkedList, Stack, Queue/build" --check-stamp-file "C:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/LinkedList, Stack, Queue/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

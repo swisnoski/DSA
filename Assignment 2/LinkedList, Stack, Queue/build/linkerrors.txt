@@ -1,0 +1,11 @@
+================================================================================
+Linker Errors
+Generated: 2026-09-12T15:40:04.119Z
+Total Errors: 2
+================================================================================
+
+[LNK2019] (MSVC)
+unresolved external symbol _main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) [C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\build\LinkedList.vcxproj]
+
+[LNK1120] (MSVC)
+1 unresolved externals [C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\build\LinkedList.vcxproj]

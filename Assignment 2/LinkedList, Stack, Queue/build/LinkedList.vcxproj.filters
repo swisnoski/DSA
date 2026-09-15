@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\LinkedList, Stack, Queue\LinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\LinkedList, Stack, Queue\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{A31F7E41-D2A0-396C-AE1A-BD08B4EFF839}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

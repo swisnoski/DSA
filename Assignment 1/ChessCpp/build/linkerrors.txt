@@ -1,0 +1,8 @@
+================================================================================
+Linker Errors
+Generated: 2026-09-10T07:47:28.547Z
+Total Errors: 1
+================================================================================
+
+[LNK1168] (MSVC)
+cannot open C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 1\ChessCpp\build\Debug\ChessCpp.exe for writing [C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 1\ChessCpp\build\ChessCpp.vcxproj]

@@ -1,0 +1,3 @@
+C:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/Exercises 3, 4, 5/build/CMakeFiles/ExerciseCompilation.dir
+C:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/Exercises 3, 4, 5/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/swisnoski/OneDrive - Olin College of Engineering/2026_02 Fall/Data Structures + Algorithms/Assignment 2/Exercises 3, 4, 5/build/CMakeFiles/ZERO_CHECK.dir

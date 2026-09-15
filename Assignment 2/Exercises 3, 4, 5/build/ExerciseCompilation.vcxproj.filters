@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\Exercises 3, 4, 5\Exercises.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 2\Exercises 3, 4, 5\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{63FBC910-62B4-3054-A9FC-23EAC287CF60}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

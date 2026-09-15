@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\swisnoski\OneDrive - Olin College of Engineering\2026_02 Fall\Data Structures + Algorithms\Assignment 1\ChessCpp\build\CMakeFiles\b8249656ff089354aa8264a30464c4e2\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FBCF0096-B30D-3540-AB73-33C82CC5EDDA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

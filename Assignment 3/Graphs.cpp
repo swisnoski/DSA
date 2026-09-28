@@ -45,6 +45,10 @@ interface Graph<VertexType> {
 
 // we can mimic the structure of the graph shown in day 6 
 
+/**
+ * Represents a directed weighted graph.
+ * @param VertexType the type that represents a vertex in the graph
+ */
 template <typename VertexType> // let's make another function that is kinda like an interface 
 class Graph{
     private:
@@ -62,6 +66,10 @@ class Graph{
     // we will therefore call this map our "adjacencyMap"
 
     public:
+    /**
+     * Gets all vertices in the graph.
+     * @return the vertices in the graph
+     */
     // @return the vertices in the graph
     std::set<VertexType> getVertices(){
         // so return all the vertices, we can create a set of vertices 
@@ -76,6 +84,11 @@ class Graph{
         return vertices;
     }
     
+    /**
+     * Adds a vertex to the graph with no connections.
+     * @param nodeData the vertex to add
+     * @return true if added, false if vertex already exists
+     */
     // so this function is not in the HW assignment but was in the inclass assignment. 
     // it seems useful so we are going to keep it
     // to add a vertex we just need to add an addition to the adjacency map with no connections
@@ -90,6 +103,13 @@ class Graph{
         return true; // and then return 0 anyway 
     }
 
+    /**
+     * Adds an edge between two vertices with the given cost.
+     * @param fromVertex source vertex
+     * @param toVertex target vertex
+     * @param cost edge weight
+     * @return true if the edge was added
+     */
     // Add an edge between [fromVertex] and [toVertex] with edge weight [cost]
     bool addEdge(VertexType fromVertex, VertexType toVertex, double cost) {
         // first, let's make sure the vertecies are in the graph 
@@ -106,6 +126,11 @@ class Graph{
         return true;
     }
 
+    /**
+     * Gets all edges that begin at the given vertex.
+     * @param fromVertex source vertex
+     * @return a map where each key is a connected vertex and value is edge weight
+     */
     // @return a map where each key represents a vertex connected to [from] and the value represents the edge weight.
     // Returns a map where key = target vertex, value = edge cost
     std::map<VertexType, double> getEdges(VertexType fromVertex) const {
@@ -116,6 +141,9 @@ class Graph{
         return {}; // Return empty map if vertex doesn't exist
     }
 
+    /**
+     * Removes all edges and vertices from the graph.
+     */
     // Remove all edges and vertices from the graph
     void clearGraph() {
         adjacencyMap.clear();
@@ -123,7 +151,10 @@ class Graph{
 };
 
 
-// and then let's test that functionality 
+/**
+ * Tests Graph functionality.
+ */
+ // and then let's test that functionality 
 void testGraph() {
     std::cout << "\nGraph Tests\n";
     Graph<std::string> graph;

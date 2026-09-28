@@ -48,12 +48,22 @@ while queue is not empty:
 // so basically how we can set this up is if we have a graph that holds a map of vertices 
 // of a selected vertex type, and a priority queue that has type vertextype and whatever priority we give it 
 
+/**
+ * Runs Dijkstra's algorithm on a Graph.
+ * @param VertexType the type that represents a vertex in the graph
+ */
 template <typename VertexType>
 class Dijkstra{
     public:
     // so we hold a graph that we can reset at any time 
     Graph<VertexType> dijkstraGraph;
 
+    /**
+     * Finds the shortest path from source to end.
+     * @param source starting vertex
+     * @param end target vertex
+     * @return vector for the shortest path, empty if no path exists
+     */
     // so we want to return a vector for the shortest path 
     std::vector<VertexType> findShortestPath(VertexType source, VertexType end){
         // we start by collecting eact of the vertices 
@@ -157,6 +167,10 @@ class Dijkstra{
 // Apparently, the expected answer is 425185
 
 
+/**
+ * Solves Project Euler Problem 83 by finding minimal path sum top-left to bottom-right.
+ * @see https://projecteuler.net/problem=83
+ */
 void solveProblem83() {
 
     // we can first load the file as a text file which parses by line using ifstream and the fstream library 
@@ -251,7 +265,13 @@ void solveProblem83() {
 
 
 
-// and last but not least, we can invoke the power of AI to write some tests for us!!
+/**
+ * Prints a path for test output.
+ * @param T element type in the path
+ * @param testName name of the test to display
+ * @param path vector of vertices to print
+ */
+ // and last but not least, we can invoke the power of AI to write some tests for us!!
 template <typename T>
 void printPath(const std::string& testName, const std::vector<T>& path) {
     std::cout << testName << ": ";
@@ -266,6 +286,9 @@ void printPath(const std::string& testName, const std::vector<T>& path) {
 
 
 
+/**
+ * Runs Dijkstra test cases.
+ */
 void testDijkstra() {
     // ----------------------------------------------------
     // Test 1: Simple Linear Graph (A -> B -> C)

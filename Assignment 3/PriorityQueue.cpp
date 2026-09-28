@@ -57,12 +57,20 @@ then, once we define a min heap, we can easily stack our priority queue on top
 // it just has data 
 
 
+/**
+ * Node stored in the min-heap.
+ * @param heapDataType the type of data stored in the node
+ */
 template <typename heapDataType>
 struct HeapNode {
     heapDataType data;
     double priority;
 };
 
+/**
+ * Min-heap storing HeapNodes ordered by priority.
+ * @param heapDataType the type of data stored in the heap
+ */
 template <typename heapDataType>
 class minHeap{
     private:
@@ -70,6 +78,11 @@ class minHeap{
     // so instead of a vector of just doubles we can instead declare a vector of heap nodes 
 
     public:
+    /**
+     * Adds a node to the heap and bubbles it up.
+     * @param newData data to store
+     * @param newPriority priority value, lower means higher priority
+     */
     void addNode(heapDataType newData, double newPriority){
         // add the new data to the end of the array 
         // std::cout <<" adding node "; debug
@@ -89,6 +102,10 @@ class minHeap{
         return;
     }
 
+    /**
+     * Removes and returns the minimum-priority node.
+     * @return the HeapNode with smallest priority
+     */
     HeapNode<heapDataType> popMin(){
         // std::cout <<" poppin node ";
         if(MinHeapArray.size() == 0){
@@ -106,6 +123,10 @@ class minHeap{
         return minNode;
     }
 
+    /**
+     * Moves the node down until heap property is restored.
+     * @param nodePosition index of node to bubble down
+     */
     void bubbleDown(int nodePosition){
         // needs to handle anything for 1+ nodes 
         // std::cout <<" bubblin down "; debug
@@ -171,6 +192,10 @@ class minHeap{
         }
     }
 
+    /**
+     * Moves the node up until heap property is restored.
+     * @param nodePosition index of node to bubble up
+     */
     void bubbleUp(int nodePosition){
         // std::cout <<" bubblin up ";
         HeapNode<heapDataType> dataNode = MinHeapArray[nodePosition];
@@ -187,11 +212,20 @@ class minHeap{
         }
     }
 
+    /**
+     * Checks if the heap is empty.
+     * @return true if empty, false otherwise
+     */
     // okay so we need to go back and add in this function to actually make the priority queue work 
     bool isEmpty(){
         return (MinHeapArray.size() == 0);
     }
 
+    /**
+     * Adjusts the priority of the given element.
+     * @param data element whose priority should change
+     * @param newPriority the new priority, lower means earlier in order
+     */
     // okay so we ALSO need to add an adjust priority function 
     void adjustPriority(heapDataType data, double newPriority) {
         // no easy way to access data in vector so we can just loop through each element in the vector 
@@ -214,7 +248,10 @@ class minHeap{
     }
 };
 
-// and then let's test that functionality 
+/**
+ * Tests MinHeap functionality.
+ */
+ // and then let's test that functionality 
 // (thank you AI for helping me rewrite tests because I just had to majorily edit my heap)
 void testMinHeap() {
     std::cout << "\nMinHeap Tests!\n";
@@ -286,6 +323,10 @@ interface MinPriorityQueue<T> {
 */
 
 
+/**
+ * Maintains a priority queue where lower priority value means sooner removal.
+ * @param queueType the representation of the items in the queue
+ */
 template <typename queueType>
 class MinPriorityQueue{
     // okay so basically we just need to keep a MinHeap
@@ -295,16 +336,29 @@ class MinPriorityQueue{
     // queue type is type of data, priority type is still double 
 
     public:
+    /**
+     * Checks if the queue is empty.
+     * @return true if the queue is empty, false otherwise
+     */
     // @return true if the queue is empty, false otherwise
     bool isEmpty(){
         return MinHeapQueue.isEmpty();
     }
 
+    /**
+     * Adds an element with the given priority.
+     * @param data element to add
+     * @param priority priority level, lower means sooner removal
+     */
     // Add [elem] with at level [priority]
     void addWithPriority(queueType data, double priority){
         MinHeapQueue.addNode(data, priority);
     }
 
+    /**
+     * Gets the next highest-priority element and removes it.
+     * @return the next element in terms of priority
+     */
     // Get the next (highest priority) element and remove this element from the queue.
     // @return the next element in terms of priority.  If empty, return null.
     queueType next(){
@@ -312,6 +366,11 @@ class MinPriorityQueue{
         return minNode.data; // we have access to priority too if needed
     }
 
+    /**
+     * Adjusts the priority of the given element.
+     * @param data element whose priority should change
+     * @param newPriority the priority to use, lower means earlier in order
+     */
     // Adjust the priority of the given element
     // @param elem whose priority should change
     // @param newPriority the priority to use for the element
@@ -325,6 +384,9 @@ class MinPriorityQueue{
 };
 
 
+/**
+ * Tests MinPriorityQueue functionality.
+ */
 void testPriorityQueue(){
     std::cout << "\nPriority Queue Tests!\n";
 

@@ -93,7 +93,7 @@ class LinkedList{
     //Adds the element [data] to the front of the linked list.
     int pushFront(T newData){  //adding data, need input 
         // so we to add a new node first 
-        LLNode<T>* newNodePtr = new LLNode<T>(); // initializing newNode as a pointer to a node
+        LLNode<T>* newNodePtr = new LLNode<T>(); // initializing new Node as a pointer to a node
         newNodePtr->storedData = newData; 
         
         // in order to do this right we need to check if our list is empty

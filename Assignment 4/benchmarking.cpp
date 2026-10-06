@@ -36,8 +36,8 @@ std::vector<int> makeRandomList(int desiredSize) {
 
 // and then we can test 
 int main() {
-    // we will test five vectors of different sizes - 10, 100, 1000, 10000, and 100000
-    std::vector<int> vectorSizes = {10, 100, 1000, 10000, 100000};
+    // we will test five vectors of different sizes - 10, 100, 1000, 10000, and 100000 (and also 200000 now)
+    std::vector<int> vectorSizes = {10, 100, 1000, 10000, 100000, 200000};
 
     std::cout << "size, insertion, selection, heap, merge, radix\n";
 

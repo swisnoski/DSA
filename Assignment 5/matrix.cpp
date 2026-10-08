@@ -11,6 +11,7 @@ Assignment 5 - Divide and Conquer and Dynamic Programming
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <cmath>
 
 
 
@@ -72,6 +73,12 @@ class Matrix{
 
     MatrixDataType getCell(int column, int row){
         return entireMatrix[row][column];
+    }
+
+    // we also want to be able to see the size from outside the class, mostly so we can
+    // tell when multiply returns NULL (which ends up as a 0x0 matrix)
+    int getSize(){
+        return matrixSize;
     }
 
     std::vector<Matrix<MatrixDataType>> splitMatrix() {
@@ -146,6 +153,10 @@ class Matrix{
         // entireMatrix is matrix A, otherMatrix is matrix B, matrixProduct is matrix C
         Matrix<MatrixDataType> matrixProduct(matrixSize); 
 
+        if(matrixSize == 0){
+            return NULL;
+        }
+
         // Matrices must be the same size
         if(matrixSize != otherMatrix.matrixSize){
             return NULL;
@@ -158,9 +169,14 @@ class Matrix{
             return matrixProduct;
         }
 
-        // Matrix size must be a power of 2, we can just check if the current matrix is 
-        // divisible by two recursively 
-        if(matrixSize % 2 != 0){
+        // okay so this actually took me a while to figure out, but basically in order to check if
+        // a number is a power of 2, we can check if k where k = log2(n) is a whole number. 
+        // so we find the log2(n) = k and round k to the nearest whole number. Then we can do "1 << exponent", 
+        // which essentially is the same as checking if 2^k is equal to n, our matrix size. If log2(n) = k was already a 
+        // whole number, then rounding won't change anything and 2^k should equal n. If log2(n) = k was NOT a whole number,
+        // then rounding it will cause 2^k to no longer be equal to n. 
+        int exponent = std::round(std::log2(matrixSize));
+        if((1 << exponent) != matrixSize){
             return NULL;
         }
 
@@ -196,7 +212,7 @@ class Matrix{
 
         // and now we have all four C matricies, so we just need to combine them into one final matrix and return it! 
 
-        int halfsize = matrixSize / 2;
+        int halfSize = matrixSize / 2;
 
         for(int rowIndex = 0; rowIndex < halfSize; rowIndex++){
             for(int columnIndex = 0; columnIndex < halfSize; columnIndex++){
@@ -257,7 +273,8 @@ class Matrix{
 
         // Matrix size must be a power of 2, we can just check if the current matrix is 
         // divisible by two recursively 
-        if(matrixSize % 2 != 0){
+        int exponent = std::round(std::log2(matrixSize));
+        if((1 << exponent) != matrixSize){
             return NULL;
         }
 
@@ -306,7 +323,7 @@ class Matrix{
 
         // and then once we have the C quads, we again use the same strat to iterate through and 
         // combine all the matricies together into a single product 
-        int halfsize = matrixSize / 2;
+        int halfSize = matrixSize / 2;
 
         for(int rowIndex = 0; rowIndex < halfSize; rowIndex++){
             for(int columnIndex = 0; columnIndex < halfSize; columnIndex++){
@@ -323,9 +340,101 @@ class Matrix{
 };
 
 
-// and then we can test 
+// and then we can test! 
+
+// in order to test easily, we needed a better, easier way to declare and set matricies.
+// we already have a function to set rows, so let's build a function where we can pass in a
+// vector of vectors and instantly declare a matrix. In all honestly, 
+// this should probably be part of the constructor, but whatever, I don't want to work 
+// on the matrix class anymore  
+template <typename MatrixDataType>
+Matrix<MatrixDataType> makeMatrix(std::vector<std::vector<MatrixDataType>> rows) {
+    Matrix<MatrixDataType> newMatrix(rows.size());
+    for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+        newMatrix.setRow(rowIndex, rows[rowIndex]);
+    }
+    return newMatrix;
+}
+
+// and then now that we have a good way to declare matrix, we can run some useful tests! 
+// to make this easier on myself, I'm splitting testing and benchmarking across a few different functions
+// here. In this file, we will have two sets of unit tests, one that tests the basic functions 
+// of the matrix class (more aligned with part 1) and one that tests multiplication (more aligned 
+// with part 2). 
+
+// Then, seperately, we will do benchmarking in a totally different file. 
+
+void testMatrix() {
+    std::cout << "\nMatrix Tests\n";
+
+    // testing set cell and get cell 
+    Matrix<int> cells(2);
+    cells.setCell(1, 0, 7);  // row 0, column 1
+    std::cout << "setCell(1, 0, 7) then getCell(1, 0) (expected 7): " << cells.getCell(1, 0) << "\n";
+
+    // testing split matrix 
+    Matrix<int> a2 = makeMatrix<int>({{1,2},{3,4}});
+    std::vector<Matrix<int>> quads = a2.splitMatrix();
+    std::cout << "split A11 (expected 1): " << quads[0].getCell(0, 0) << "\n";
+    std::cout << "split A12 (expected 2): " << quads[1].getCell(0, 0) << "\n";
+    std::cout << "split A21 (expected 3): " << quads[2].getCell(0, 0) << "\n";
+    std::cout << "split A22 (expected 4): " << quads[3].getCell(0, 0) << "\n";
+
+    // test addition and subtraction
+    // [1 2] + [5 6] = [ 6  8]     [1 2] - [5 6] = [-4 -4]
+    // [3 4]   [7 8]   [10 12]     [3 4]   [7 8]   [-4 -4]
+    Matrix<int> b2 = makeMatrix<int>({{5,6},{7,8}});
+    std::cout << "add row1 col1 (expected 12): " << a2.add(b2).getCell(1, 1) << "\n";
+    std::cout << "subtract row0 col1 (expected -4): " << a2.subtract(b2).getCell(1, 0) << "\n";
+}
+
+
+// and then we also need to test out our multiplication functions 
+void testMultiply() {
+    std::cout << "\nMultiply + Strassen Tests\n";
+
+    // 1x1 base case
+    Matrix<int> a1 = makeMatrix<int>({{3}});
+    Matrix<int> b1 = makeMatrix<int>({{4}});
+    std::cout << "1x1 multiply 3*4 (expected 12): " << a1.multiply(b1).getCell(0, 0) << "\n";
+    std::cout << "1x1 strassen 3*4 (expected 12): " << a1.strassenMultiply(b1).getCell(0, 0) << "\n";
+
+    // 2x2 matrix multiplicaton 
+    // [1 2] * [5 6] = [19 22]
+    // [3 4]   [7 8]   [43 50]
+    Matrix<int> a2 = makeMatrix<int>({{1,2},{3,4}});
+    Matrix<int> b2 = makeMatrix<int>({{5,6},{7,8}});
+    Matrix<int> m2 = a2.multiply(b2);
+    Matrix<int> s2 = a2.strassenMultiply(b2);
+    std::cout << "2x2 multiply row0 col1 (expected 22): " << m2.getCell(1, 0) << "\n";
+    std::cout << "2x2 multiply row1 col0 (expected 43): " << m2.getCell(0, 1) << "\n";
+    std::cout << "2x2 strassen row0 col1 (expected 22): " << s2.getCell(1, 0) << "\n";
+    std::cout << "2x2 strassen row1 col0 (expected 43): " << s2.getCell(0, 1) << "\n";
+
+    // 4x4 A*A (two levels of recursion)
+    // row0 = [90 100 110 120], row3 = [426 484 542 600]
+    Matrix<int> a4 = makeMatrix<int>({{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}});
+    Matrix<int> m4 = a4.multiply(a4);
+    Matrix<int> s4 = a4.strassenMultiply(a4);
+    std::cout << "4x4 multiply row0 col3 (expected 120): " << m4.getCell(3, 0) << "\n";
+    std::cout << "4x4 multiply row3 col0 (expected 426): " << m4.getCell(0, 3) << "\n";
+    std::cout << "4x4 strassen row0 col3 (expected 120): " << s4.getCell(3, 0) << "\n";
+    std::cout << "4x4 strassen row3 col0 (expected 426): " << s4.getCell(0, 3) << "\n";
+
+    // testing when dimensions don't align
+    std::cout << "2x2 * 4x4 multiply size (expected 0): " << a2.multiply(a4).getSize() << "\n";
+    std::cout << "2x2 * 4x4 strassen size (expected 0): " << a2.strassenMultiply(a4).getSize() << "\n";
+
+    // testing a matrix that is not a power of 2
+    Matrix<int> a3 = makeMatrix<int>({{1,2,3},{4,5,6,},{7,8,9}});
+    std::cout << "3x3 multiply size (expected 0): " << a3.multiply(a3).getSize() << "\n";
+    std::cout << "3x3 strassen size (expected 0): " << a3.strassenMultiply(a3).getSize() << "\n";
+}
+
+// Yay! all our unit tests pass! now it's benchmarking time!! 
+
 int main() {
-    std::cout << "This is the main function!";
-    Matrix<int> myMatrix(10);
+    testMatrix();
+    testMultiply();
     return 0;
 }

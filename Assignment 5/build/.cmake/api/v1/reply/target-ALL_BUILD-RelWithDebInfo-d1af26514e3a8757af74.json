@@ -22,7 +22,10 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "Matrixopia::@6890427a1f51a3e7e1df"
+			"id" : "MatrixopiaBench::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "NeedleHamLunch::@6890427a1f51a3e7e1df"
 		},
 		{
 			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
@@ -34,7 +37,10 @@
 	"orderDependencies" : 
 	[
 		{
-			"id" : "Matrixopia::@6890427a1f51a3e7e1df"
+			"id" : "MatrixopiaBench::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "NeedleHamLunch::@6890427a1f51a3e7e1df"
 		}
 	],
 	"paths" : 

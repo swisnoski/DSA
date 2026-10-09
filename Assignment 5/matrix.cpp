@@ -433,8 +433,9 @@ void testMultiply() {
 
 // Yay! all our unit tests pass! now it's benchmarking time!! 
 
-int main() {
-    testMatrix();
-    testMultiply();
-    return 0;
-}
+// commenting out to import class
+// int main() {
+//     testMatrix();
+//     testMultiply();
+//     return 0;
+// }

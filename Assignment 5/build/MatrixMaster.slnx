@@ -8,14 +8,18 @@
 		<Platform Name="win32"/>
 	</Configurations>
 	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="8f8db9be-3c7f-307f-b749-79750c1dabb1" DefaultStartup="true">
-		<BuildDependency Project="Matrixopia.vcxproj"/>
+		<BuildDependency Project="MatrixopiaBench.vcxproj"/>
+		<BuildDependency Project="NeedleHamLunch.vcxproj"/>
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 		<Build Solution="Debug|*" Project="false"/>
 		<Build Solution="Release|*" Project="false"/>
 		<Build Solution="MinSizeRel|*" Project="false"/>
 		<Build Solution="RelWithDebInfo|*" Project="false"/>
 	</Project>
-	<Project Path="Matrixopia.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="84d9c9b6-51d5-3480-9dd2-0536995f75b6">
+	<Project Path="MatrixopiaBench.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="94e9fdb2-4999-361a-9ac6-e5b80bb7d50a">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="NeedleHamLunch.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="819455a4-8ab0-3c2f-8bea-f564a2bf8071">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 	</Project>
 	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="1477259d-8ac7-3bf2-a3fd-4ad9a7aea5c2"/>

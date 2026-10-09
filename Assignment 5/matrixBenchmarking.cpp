@@ -30,6 +30,8 @@ you should switch between Strassen and conventional multiplication?
 // we can generate a random matrix to multiply, we will write a short function 
 // that returns a random matrix of doubles given a specific size 
 Matrix<double> makeRandomMatrix(int desiredSize) {
+    // returns a desiredSize x desiredSize matrix of random values from 0-99
+
     // all we really do is just loop through every cell and set it to a random integer between 0 and 99
     Matrix<double> randomMatrix(desiredSize);
     for (int rowIndex = 0; rowIndex < desiredSize; rowIndex++) {
@@ -47,16 +49,19 @@ Matrix<double> makeRandomMatrix(int desiredSize) {
 // and our matrix multiplication functions are correct. We can know this is doubly true because 
 // I'm great at writing code and it simply must be right. 
 
-int main() {
-    std::vector<int> matrixSizes = {2, 4, 8, 16, 32, 64, 128, 256};
+// this is our first benchmark, comparing block, strassen, and simple across different sizes
+void benchmarkSizes() {
+    // times block, strassen, and simple across a range of matrix sizes
+    std::vector<int> matrixSizes = {2, 4, 8, 16, 32, 64, 128, 256, 512};
 
     // we will run each of these five times and then average the results 
-    int trials = 5;
+    int trials = 2;
 
     // loop through the different sizes
     for (int size : matrixSizes) {
         double multiplyTime = 0;
         double strassenTime = 0;
+        double simpleTime = 0;
         bool allMatch = true;
 
         // run each time equal to number of trials 
@@ -66,7 +71,7 @@ int main() {
 
             // we use chrono to mark start and end times for both types of multiplication
             auto startTime = std::chrono::high_resolution_clock::now();
-            Matrix<double> multiplyResult = matrixA.multiply(matrixB);
+            Matrix<double> multiplyResult = matrixA.blockMultiply(matrixB);
             auto endTime = std::chrono::high_resolution_clock::now();
             multiplyTime += std::chrono::duration<double>(endTime - startTime).count();
 
@@ -74,11 +79,58 @@ int main() {
             Matrix<double> strassenResult = matrixA.strassenMultiply(matrixB);
             endTime = std::chrono::high_resolution_clock::now();
             strassenTime += std::chrono::duration<double>(endTime - startTime).count();
+
+            startTime = std::chrono::high_resolution_clock::now();
+            Matrix<double> simpleResult = matrixA.simpleMultiply(matrixB);
+            endTime = std::chrono::high_resolution_clock::now();
+            simpleTime += std::chrono::duration<double>(endTime - startTime).count();
         }
 
         // and then we divide each time by the number of trials
-        std::cout << size << ", " << multiplyTime / trials << "," << strassenTime / trials << "\n";
+        std::cout << size << ", " << multiplyTime / trials << ", " << strassenTime / trials << ", " << simpleTime / trials << "\n";
     }
+}
 
+// and this is our second benchmark, where we keep the size fixed at and try out
+// different thresholds for the hybrid, comparing it to simple each time
+void benchmarkThresholds() {
+    // times simple vs. hybrid on a fixed size matrix for different thresholds
+    int size = 2048;
+    std::vector<int> thresholds = {32, 64, 128, 256, 512, 1024, 2048};
+
+    // two trials each, averaged
+    int trials = 3;
+
+    std::cout << "Threshold, simple, hybrid\n";
+
+    for (int threshold : thresholds) {
+        double simpleTime = 0;
+        double hybridTime = 0;
+
+        for (int index = 0; index < trials; index++) {
+            Matrix<double> matrixA = makeRandomMatrix(size);
+            Matrix<double> matrixB = makeRandomMatrix(size);
+
+            // using hybrid multiply for consistency with the max threshold so it doesn't ever 
+            // use strassen multiplication
+            auto startTime = std::chrono::high_resolution_clock::now();
+            Matrix<double> simpleResult = matrixA.hybridMultiply(matrixB, size);
+            auto endTime = std::chrono::high_resolution_clock::now();
+            simpleTime += std::chrono::duration<double>(endTime - startTime).count();
+
+            startTime = std::chrono::high_resolution_clock::now();
+            Matrix<double> hybridResult = matrixA.hybridMultiply(matrixB, threshold);
+            endTime = std::chrono::high_resolution_clock::now();
+            hybridTime += std::chrono::duration<double>(endTime - startTime).count();
+        }
+
+        std::cout << threshold << ", " << simpleTime / trials << ", " << hybridTime / trials << "\n";
+    }
+}
+
+int main() {
+    // runs whichever benchmark we want
+    //benchmarkSizes();
+    benchmarkThresholds();
     return 0;
 }

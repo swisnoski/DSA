@@ -48,6 +48,7 @@ right to top left to compute the ideal matching. But let's just fill out the gra
 // ###### STEP ONE: FILLING OUT THE GRAPH ######
 
 class needlemanWunsch{
+    // builds the needleman-wunsch score matrix for two sequences and traces back the best alignment
     private:
     // we only need to store integers here, so we can create a matrix of integers 
     std::vector<std::vector<int>> entireMatrix;
@@ -68,6 +69,7 @@ class needlemanWunsch{
     // so we can use a constructor to set the size of the matrix, 
     // which means we have to pass in a size value upon initialization of the matrix 
     needlemanWunsch(std::string sequenceAinput, std::string sequenceBinput) {
+        // fills out the entire score matrix and saves the final alignment score
         sequenceA = sequenceAinput;
         sequenceB = sequenceBinput;
 
@@ -129,10 +131,12 @@ class needlemanWunsch{
 
     // just copy our setCell and getCell from the original matrix class
     void setCell(int column, int row, int newData){
+        // sets the score at (column, row)
         entireMatrix[row][column] = newData;
     }
 
     int getCell(int column, int row){
+        // returns the score at (column, row)
         return entireMatrix[row][column];
     }
 
@@ -148,6 +152,8 @@ class needlemanWunsch{
             from the bottom right to the top left cell, they are equally viable alignments. In this case, note the paths as separate alignment candidates.
     */
     std::vector<std::string> align(){
+        // traces back from the bottom right and returns the aligned sequences as <A, B>
+
         // okay so the video talked about this a bit more clearly, but basically we check for a match, and if the columns/rows match, we 
         // move diagonally. If they don't match, we move either up or left, whichever is higher. If they are equally high, then we branch.
     
@@ -211,6 +217,7 @@ class needlemanWunsch{
 
 
 int main() {
+    // aligns our two genome snippets and prints the score and alignment
     std::string genomeSnippet = "TGGCGACAACCGTAGCGGAATATTTTCGCGACCAGGGAAAACGGGTCGTGCTTTTTATCGATTCCATGACCCGTTATGCGCGTGCTTTGCGAGACGTGGCACTGGCGTCGGGAGAGCGTCCGGCTCGTCGAGGTTATCCCGCCTCCGTATTCGATAATTTGCCCCGCTTGCTGGAACGCCCAGGGGCGACCAGCGAGGGAAGCATTACTGCCTTTTATACGGTACTGCTGGAAAGCGAGGAAGAGGCGGACCCGATGGCGGATGAAATTCGCTCTATCCTTGACGGTCACCTGTATCTGAGCAGAAAGCTGGCCGGGCAGGGACATTACCCGGCAATCGATGTACTGAAAAGCGTAAGCCGCGTTTTT";
     std::string testAgainst = "TGGCCACCACGATAGCAGAATTTTTTCGCGATAATGGAAAGCGAGTCGTCTTGCTTGCCGACTCACTGACGCGTTATGCCAGGGCCGCACGGGAAATCGCTCTGGCCGCCGGAGAGACCGCGGTTTCTGGAGAATATCCGCCAGGCGTATTTAGTGCATTGCCACGACTTTTAGAACGTACGGGAATGGGAGAAAAAGGCAGTATTACCGCATTTTATACGGTACTGGTGGAAGGCGATGATATGAATGAGCCGTTGGCGGATGAAGTCCGTTCACTGCTTGATGGACATATTGTACTATCCCGACGGCTTGCAGAGAGGGGGCATTATCCTGCCATTGACGTGTTGGCAACGCTCAGCCGCGTTTTT";
     needlemanWunsch myNeedlemanWunsch(genomeSnippet, testAgainst);
